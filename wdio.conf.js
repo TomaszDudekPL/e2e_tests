@@ -1,3 +1,5 @@
+const { generateAllureReport } = require('./test/utils/helpers');
+
 exports.config = {
     //
     // ====================
@@ -66,7 +68,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'silent',
     //
     // Set specific log levels per logger
     // loggers:
@@ -128,9 +130,15 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
-
-
+    reporters: ['spec',
+      ['allure',
+        {
+          outputDir: './_results_/allure-raw',
+          disableWebdriverStepsReporting: false,
+          disableWebdriverScreenshotsReporting: false,
+        }
+      ]
+    ],
     
     //
     // Options to be passed to Mocha.
@@ -141,7 +149,11 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
-    //
+
+    // expect-webdriverio
+    wait: 5000, // ms to wait for expectation to succeed
+    interval: 100, // interval between attempts
+
     // =====
     // Hooks
     // =====
@@ -265,8 +277,9 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: async function(exitCode, config, capabilities, results) {
+      await generateAllureReport();
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
