@@ -1,0 +1,35 @@
+{
+  "name": "e2e_tests",
+  "version": "1.0.0",
+  "description": "End to End testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wdio wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomaszDudekPL/e2e_tests.git"
+  },
+  "keywords": [
+    "e2e"
+  ],
+  "author": "Tomasz Dudek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomaszDudekPL/e2e_tests/issues"
+  },
+  "homepage": "https://github.com/TomaszDudekPL/e2e_tests#readme",
+  "dependencies": {
+    "@wdio/cli": "^6.12.1"
+  },
+  "devDependencies": {
+    "@wdio/allure-reporter": "^7.1.1",
+    "@wdio/local-runner": "^7.1.1",
+    "@wdio/mocha-framework": "^7.1.1",
+    "@wdio/spec-reporter": "^7.1.1",
+    "@wdio/sync": "^7.1.1",
+    "chromedriver": "^89.0.0",
+    "wdio-chromedriver-service": "^7.0.0"
+  }
+}
