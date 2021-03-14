@@ -1,4 +1,5 @@
-const { generateAllureReport } = require('./test/utils/helpers');
+const chalk = require('chalk');
+const { generateAllureReport, logFuncName } = require('./test/utils/helpers');
 const video = require('wdio-video-reporter');
 
 exports.config = {
@@ -20,7 +21,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.js'
+        './test/specs/e2e.articles.uc01.create.new.article.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -152,7 +153,7 @@ exports.config = {
         // Babel setup
         require: ['@babel/register'],
         ui: 'bdd',
-        timeout: 60000
+        timeout: 180000
     },
 
     // expect-webdriverio
@@ -200,8 +201,14 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+
+      Object.assign(global, {
+        chalk,
+        logFuncName
+      })
+
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
