@@ -92,7 +92,7 @@ uc04: Delete created article (use url to article).
 ```
 
 ```
-Suite 2:
+Suite 2: (not covered by automated tests)
 Scenario (negative): CDR
 
 uc01: Create a new article (get url to article).
@@ -102,7 +102,7 @@ uc03: Try to get (read) deleted article (use url to article).
 ```
 
 ```
-Suite 3:
+Suite 3: (not covered by automated tests)
 Scenario (positive): CRR
 
 uc01: Create a new article (get url to article).
