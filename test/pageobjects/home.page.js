@@ -19,12 +19,13 @@ class HomePage extends Page {
     get global_feed_btn () { return $$('.page .nav li')[1] }
     get your_feed_btn () { return $('.page .nav li:nth-child(1)') }
 
-    get article_preview_first_in_feed () { return $('div .article-preview') }
+    get article_preview () { return $('div .article-preview') }
     get article_preview_first_in_feed_author () { return $('div .article-preview .author') }
     get article_preview_first_in_feed_title () { return $('div .article-preview h1') }
     get article_preview_first_in_feed_description () { return $('div .article-preview p') }
 
     get edit_article_btn () { return $('.banner span a') }
+    get delete_article_btn () { return $('.banner span button') }
 
 
     createNewPost ({ postTitle, postMainContent, postAbout, postHashtag }) {
@@ -67,6 +68,12 @@ class HomePage extends Page {
       this.article_page_view.waitForDisplayed();
       browser.pause(1000);
 
+    }
+
+    deleteArticle() {
+      logFuncName('cyan');
+      this.article_page_view.waitForDisplayed();
+      this.delete_article_btn.click();
     }
 
 }

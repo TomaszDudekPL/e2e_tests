@@ -110,6 +110,32 @@ describe('Articles.', () => {
 
      });
 
+      it('Delete created article.', () => {
+
+        // BEFORE: User should be able to delete his article.
+
+        // STEP 1: Log-in as user A.
+        LoginPage.login(details.userLogin, details.userPassword);
+
+        // STEP 2: Use link to previously created article.
+        browser.url(urlToCreatedArticle);
+
+        // STEP 3: Delete article.
+        HomePage.deleteArticle();
+
+        // ASSERT: Article preview body is not available after deletion.
+        expect(HomePage.article_preview).not.toBeDisplayed();
+
+        // STEP 4: Use link to user`s profile to section MY ARTICLES.
+        LoginPage.open('#/profile/tomasz');
+
+        // ASSERT: Article preview body is not present in MY ARTICLES section.
+        expect(HomePage.article_preview).not.toBeDisplayed();
+
+        // END: User is able to delete his article.
+
+      });
+
 });
 
 
