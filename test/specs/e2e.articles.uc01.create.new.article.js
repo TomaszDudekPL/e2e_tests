@@ -7,7 +7,9 @@ describe('Articles.', () => {
     userLogin: 'tdkontakt@gmail.com',
     userPassword: 'test1234',
     postTitle: 'Article title',
+    editedPostTitle: 'Article title is changed!',
     postMainContent: 'First article is created',
+    editedPostMainContent: 'First article content is changed!',
     postAbout: 'About article',
     postHashtag: 'myhashtag',
     postAuthor: 'tomasz'
@@ -50,7 +52,7 @@ describe('Articles.', () => {
       expect(HomePage.article_preview_first_in_feed_title).toHaveTextContaining(details.postTitle);
       // ASSERT: First article in feed has proper "About" description.
       expect(HomePage.article_preview_first_in_feed_description).toHaveTextContaining(details.postAbout);
-      // ASSERT: First article in feed has proper "Author" description.
+      // ASSERT: First article in feed has proper "Author" name.
       expect(HomePage.article_preview_first_in_feed_author).toHaveTextContaining(details.postAuthor);
 
       // END: User is able to create and publish new article.
@@ -74,6 +76,39 @@ describe('Articles.', () => {
 
       // END: User is able to get previously created article.
     })
+
+     it('Update created article.', () => {
+
+       // BEFORE: User should be able to change article`s content (update).
+
+       // STEP 1: Log-in as user A.
+       LoginPage.login(details.userLogin, details.userPassword);
+
+       // STEP 2: Use link to previously created article.
+       browser.url(urlToCreatedArticle);
+
+       // STEP 3: Edit article content: main content and title.
+       HomePage.editArticle(details);
+
+       // ASSERT: Article is edited: title is correct.
+       expect(HomePage.article_page_view_title).toHaveTextContaining(details.editedPostTitle);
+       // ASSERT: Article is edited: main content is correct.
+       expect(HomePage.article_page_view_main_content).toHaveTextContaining(details.editedPostMainContent);
+
+       // STEP 4: Go to global feed.
+       HomePage.navigateToHomeView();
+       HomePage.getGlobalFeed();
+
+       // ASSERT: First article in feed has proper title: changed.
+       expect(HomePage.article_preview_first_in_feed_title).toHaveTextContaining(details.editedPostTitle);
+       // ASSERT: First article in feed has proper "About" description (not changed).
+       expect(HomePage.article_preview_first_in_feed_description).toHaveTextContaining(details.postAbout);
+       // ASSERT: First article in feed has proper "Author" name (not changed).
+       expect(HomePage.article_preview_first_in_feed_author).toHaveTextContaining(details.postAuthor);
+
+       // END: User is be able to change article`s content (update it).
+
+     });
 
 });
 

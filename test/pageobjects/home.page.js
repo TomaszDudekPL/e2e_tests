@@ -24,6 +24,8 @@ class HomePage extends Page {
     get article_preview_first_in_feed_title () { return $('div .article-preview h1') }
     get article_preview_first_in_feed_description () { return $('div .article-preview p') }
 
+    get edit_article_btn () { return $('.banner span a') }
+
 
     createNewPost ({ postTitle, postMainContent, postAbout, postHashtag }) {
       logFuncName('cyan');
@@ -51,6 +53,20 @@ class HomePage extends Page {
     getGlobalFeed () {
       logFuncName('cyan');
       this.global_feed_btn.click();
+    }
+
+    editArticle ({editedPostTitle, editedPostMainContent}) {
+      logFuncName('cyan');
+      this.article_page_view.waitForDisplayed();
+      this.edit_article_btn.click();
+      this.editor_page.waitForDisplayed();
+
+      this.title_input.setValue(editedPostTitle);
+      this.article_text_input.setValue(editedPostMainContent);
+      this.publish_article_btn.click();
+      this.article_page_view.waitForDisplayed();
+      browser.pause(1000);
+
     }
 
 }
