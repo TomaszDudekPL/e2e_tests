@@ -16,12 +16,19 @@ describe('Articles.', () => {
 
   let urlToCreatedArticle = '';
 
+  beforeEach(() => {
+    LoginPage.open('#/login');
+  })
+
+  afterEach( () => {
+    browser.reloadSession();
+  })
+
     it('Create new article.', () => {
 
       // BEFORE: User should be able to create new article.
 
       // STEP 1: Log-in as user A.
-      LoginPage.open('#/login');
       LoginPage.login(details.userLogin, details.userPassword);
 
       // STEP 2: Create new post.
@@ -49,6 +56,25 @@ describe('Articles.', () => {
       // END: User is able to create and publish new article.
 
     });
+
+    it('Get created article.', () => {
+
+      // BEFORE: User should be able to open created in previous step article.
+
+      // STEP 1: Log-in as user A.
+      LoginPage.login(details.userLogin, details.userPassword);
+
+      // STEP 2: Use link to previously created article.
+      browser.url(urlToCreatedArticle);
+
+      // ASSERT: Article is open: title is correct.
+      expect(HomePage.article_page_view_title).toHaveTextContaining(details.postTitle);
+      // ASSERT: Article is open: main content is correct.
+      expect(HomePage.article_page_view_main_content).toHaveTextContaining(details.postMainContent);
+
+      // END: User is able to get previously created article.
+    })
+
 });
 
 
